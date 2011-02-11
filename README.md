@@ -17,22 +17,18 @@ Minimal Capfile for deploy:
 
 To setup:
 
-    !!!plain
     cap deploy:setup
 
 Then when you push some changes to git repository simply run:
 
-    !!!plain
     cap deploy
 
 If you have migrations instead of previous command run:
 
-    !!!plain
     cap deploy:migrations
 
 To look through changes to be deployed:
 
-    !!!plain
     cap deploy:pending
 
 Multistage
@@ -79,5 +75,4 @@ To automatically update crontab file:
 
 You can also clear crontab file with command:
 
-    !!!plain
     cap whenever:clear_crontab
