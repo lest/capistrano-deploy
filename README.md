@@ -1,4 +1,4 @@
-Capistrano recipes
+Capistrano deploy recipes
 ==================
 
 Deploy
