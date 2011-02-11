@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name        = 'capistrano-deploy'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Just Lest']
   s.email       = ['just.lest@gmail.com']
@@ -11,4 +11,6 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+
+  s.add_dependency('capistrano', '~> 2.5.19')
 end
