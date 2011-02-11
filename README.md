@@ -8,7 +8,7 @@ Git-based deployment process.
 
 Minimal Capfile for deploy:
 
-    require 'capistrano-lest/deploy'
+    require 'capistrano-deploy/deploy'
 
     server 'server name or ip address', :web, :app, :db, :primary => true
     set :user, 'user for deploy'
@@ -34,7 +34,7 @@ To look through changes to be deployed:
 Multistage
 ----------
 
-    require 'capistrano-lest/multistage'
+    require 'capistrano-deploy/multistage'
 
     set :default_stage, :development
 
@@ -49,7 +49,7 @@ Multistage
 Bundle
 ------
 
-    require 'capistrano-lest/bundle'
+    require 'capistrano-deploy/bundle'
 
 To automatically install missing gems:
 
@@ -58,7 +58,7 @@ To automatically install missing gems:
 Unicorn
 -------
 
-    require 'capistrano-lest/unicorn'
+    require 'capistrano-deploy/unicorn'
 
 Now you can setup to reload unicorn on `deploy:restart`:
 
@@ -67,7 +67,7 @@ Now you can setup to reload unicorn on `deploy:restart`:
 Whenever
 --------
 
-    require 'capistrano-lest/whenever'
+    require 'capistrano-deploy/whenever'
 
 To automatically update crontab file:
 
