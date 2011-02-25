@@ -55,6 +55,11 @@ To automatically install missing gems:
 
     after 'deploy:update_code', 'bundle:install'
 
+Passenger
+---------
+
+    require 'capistrano-deploy/passenger'
+
 Unicorn
 -------
 
