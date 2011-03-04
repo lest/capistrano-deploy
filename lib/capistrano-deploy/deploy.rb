@@ -7,6 +7,8 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   set :branch, 'master'
 
+  set :enable_submodules, false
+
   set(:current_revision) { capture("cd #{deploy_to} && git rev-parse HEAD").chomp }
 
   namespace :deploy do
@@ -36,7 +38,9 @@ Capistrano::Configuration.instance(:must_exist).load do
 
     desc 'Update the deployed code'
     task :update_code, :except => {:no_release => true} do
-      run "cd #{deploy_to} && git fetch origin && git reset --hard origin/#{branch}"
+      command = ["cd #{deploy_to}", 'git fetch origin', "git reset --hard origin/#{branch}"]
+      command += ['git submodule init', 'git submodule -q sync', 'git submodule -q update'] if enable_submodules
+      run command.join(' && ')
     end
 
     desc 'Run migrations'
