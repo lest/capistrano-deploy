@@ -1,4 +1,4 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in capistrano-lest.gemspec
+# Specify your gem's dependencies in capistrano-deploy.gemspec
 gemspec

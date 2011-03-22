@@ -1,14 +1,13 @@
 Capistrano deploy recipes
-==================
+=========================
 
-Deploy
-------
+Git & Rails
+-----------
 
-Git-based deployment process.
+Minimal Capfile for Rails deploy using Git:
 
-Minimal Capfile for deploy:
-
-    require 'capistrano-deploy/deploy'
+    require 'capistrano-deploy'
+    use_recipes :git, :rails
 
     server 'server name or ip address', :web, :app, :db, :primary => true
     set :user, 'user for deploy'
@@ -34,7 +33,7 @@ To look through changes to be deployed:
 Multistage
 ----------
 
-    require 'capistrano-deploy/multistage'
+    use_recipe :multistage
 
     set :default_stage, :development
 
@@ -49,21 +48,21 @@ Multistage
 Bundle
 ------
 
-    require 'capistrano-deploy/bundle'
+    use_recipe :bundle
 
 To automatically install missing gems:
 
-    after 'deploy:update_code', 'bundle:install'
+    after 'deploy:update', 'bundle:install'
 
 Passenger
 ---------
 
-    require 'capistrano-deploy/passenger'
+    use_recipe :passenger
 
 Unicorn
 -------
 
-    require 'capistrano-deploy/unicorn'
+    use_recipe :unicorn
 
 Now you can setup to reload unicorn on `deploy:restart`:
 
@@ -72,7 +71,7 @@ Now you can setup to reload unicorn on `deploy:restart`:
 Whenever
 --------
 
-    require 'capistrano-deploy/whenever'
+    use_recipe :whenever
 
 To automatically update crontab file:
 
