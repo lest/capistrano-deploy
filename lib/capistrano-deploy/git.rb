@@ -12,7 +12,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     desc 'Setup'
     task :setup, :except => {:no_release => true} do
       run "mkdir -p `dirname #{deploy_to}` && git clone --no-checkout #{repository} #{deploy_to}"
-      update_code
+      update
     end
 
     desc 'Update the deployed code'
