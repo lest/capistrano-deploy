@@ -13,7 +13,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       args = [bundle_flags.to_s]
       args << "--without #{bundle_without.join(' ')}" unless bundle_without.empty?
 
-      run "cd #{deploy_to} && #{bundle_cmd} install #{args.join(' ')}"
+      run "cd #{release_path} && #{bundle_cmd} install #{args.join(' ')}"
     end
   end
 end
