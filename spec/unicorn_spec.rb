@@ -9,4 +9,25 @@ describe 'unicorn' do
     mock_config { set :deploy_to, '/foo/bar' }
     config.unicorn_pid.should == '`cat /foo/bar/tmp/pids/unicorn.pid`'
   end
+
+  context 'signals' do
+    before do
+      mock_config { set :unicorn_pid, '/foo.pid' }
+    end
+
+    it 'reload' do
+      cli_execute 'unicorn:reload'
+      config.should have_run('kill -HUP /foo.pid')
+    end
+
+    it 'stop' do
+      cli_execute 'unicorn:stop'
+      config.should have_run('kill -QUIT /foo.pid')
+    end
+
+    it 'reexec' do
+      cli_execute 'unicorn:reexec'
+      config.should have_run('kill -USR2 /foo.pid')
+    end
+  end
 end
