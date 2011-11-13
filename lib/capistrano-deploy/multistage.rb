@@ -8,7 +8,7 @@ module CapistranoDeploy
           multistage_stages << name
           callbacks[:start].detect { |c| c.source == 'multistage:ensure' }.except << name.to_s
           task(name) do
-            set :stage, name
+            set :stage, name.to_s
             block.call
           end
         end
