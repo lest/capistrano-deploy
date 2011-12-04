@@ -5,28 +5,12 @@ require 'capistrano-deploy'
 module CapistranoDeploy
   module Spec
     module ConfigurationExtension
-      def get(remote_path, path, options={}, &block)
-        gets[remote_path] = {:path => path, :options => options, :block => block}
-      end
-
-      def gets
-        @gets ||= {}
-      end
-
       def run(cmd, options={}, &block)
         runs[cmd] = {:options => options, :block => block}
       end
 
       def runs
         @runs ||= {}
-      end
-
-      def upload(from, to, options={}, &block)
-        uploads[from] = {:to => to, :options => options, :block => block}
-      end
-
-      def uploads
-        @uploads ||= {}
       end
     end
 
@@ -74,8 +58,6 @@ module CapistranoDeploy
     end
   end
 end
-
-
 
 RSpec.configure do |config|
   config.include CapistranoDeploy::Spec::Helper
