@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name        = 'capistrano-deploy'
-  s.version     = '0.2.1'
+  s.version     = '0.2.2'
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Just Lest']
+  s.authors     = ['Sergey Nartimov']
   s.email       = ['just.lest@gmail.com']
   s.homepage    = 'https://github.com/lest/capistrano-deploy'
   s.summary     = 'Capistrano deploy recipes'
