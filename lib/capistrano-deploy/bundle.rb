@@ -2,10 +2,6 @@ module CapistranoDeploy
   module Bundle
     def self.load_into(configuration)
       configuration.load do
-        set(:rake) { 'bundle exec rake' }
-
-        set(:whenever_cmd) { 'bundle exec whenever' }
-
         namespace :bundle do
           desc 'Install gems'
           task :install, :except => {:no_release => true} do

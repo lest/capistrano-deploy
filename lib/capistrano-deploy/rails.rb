@@ -2,6 +2,16 @@ module CapistranoDeploy
   module Rails
     def self.load_into(configuration)
       configuration.load do
+        set :rake do
+          if using_recipe?(:bundle)
+            'bundle exec rake'
+          else
+            'rake'
+          end
+        end
+
+        set(:rails_env) { 'production' }
+
         namespace :deploy do
           desc 'Deploy & migrate'
           task :migrations do
@@ -12,8 +22,6 @@ module CapistranoDeploy
 
           desc 'Run migrations'
           task :migrate, :roles => :db, :only => {:primary => true} do
-            rake = fetch(:rake, 'rake')
-            rails_env = fetch(:rails_env, 'production')
             run "cd #{deploy_to} && RAILS_ENV=#{rails_env} #{rake} db:migrate"
           end
         end

@@ -2,8 +2,21 @@ module CapistranoDeploy
   module Whenever
     def self.load_into(configuration)
       configuration.load do
-        set(:whenever_cmd) { 'whenever' }
-        set(:whenever_identifier) { application }
+        set :whenever_cmd do
+          if using_recipe?(:bundle)
+            'bundle exec whenever'
+          else
+            'whenever'
+          end
+        end
+
+        set :whenever_identifier do
+          if using_recipe?(:multistage)
+            "#{application}_#{stage}"
+          else
+            application
+          end
+        end
 
         namespace :whenever do
           desc 'Update crontab file'
