@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/ksaebdal/capistrano-spec.git
-  revision: 30c4ab39f71ab7a001f2718d5fba041b5bcd5cdf
-  specs:
-    capistrano-spec (0.1.0)
-
 PATH
   remote: .
   specs:
@@ -43,6 +37,5 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano-deploy!
-  capistrano-spec!
   rake
   rspec
