@@ -1,4 +1,4 @@
-Capistrano deploy recipes
+Capistrano deploy recipes [![TravisCI](http://travis-ci.org/lest/capistrano-deploy.png?branch=master)](http://travis-ci.org/lest/capistrano-deploy)
 =========================
 
 Git & Rails
