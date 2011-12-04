@@ -1,13 +1,24 @@
 require 'spec_helper'
 
 describe 'passenger' do
-  it 'touches tmp/restart.txt' do
+  before do
     mock_config do
-      use_recipes :passenger
+      use_recipe :passenger
       set :deploy_to, '/foo/bar'
     end
+  end
 
-    cli_execute 'deploy:restart'
-    config.should have_run('touch /foo/bar/tmp/restart.txt')
+  describe 'passenger:restart' do
+    it 'touches tmp/restart.txt' do
+      cli_execute 'passenger:restart'
+      config.should have_run('touch /foo/bar/tmp/restart.txt')
+    end
+  end
+
+  describe 'deploy:restart' do
+    it 'touches tmp/restart.txt' do
+      cli_execute 'deploy:restart'
+      config.should have_run('touch /foo/bar/tmp/restart.txt')
+    end
   end
 end
