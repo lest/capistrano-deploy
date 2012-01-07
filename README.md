@@ -97,6 +97,4 @@ after 'deploy:restart', 'whenever:update_crontab'
 
 You can also clear crontab file with command:
 
-```ruby
-cap whenever:clear_crontab
-```
+    cap whenever:clear_crontab
