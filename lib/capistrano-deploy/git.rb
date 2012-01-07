@@ -11,6 +11,10 @@ module CapistranoDeploy
 
         set(:current_revision) { capture("cd #{deploy_to} && git rev-parse HEAD").chomp }
 
+        set :local_branch do
+          `git symbolic-ref HEAD 2> /dev/null`.strip.sub('refs/heads/', '')
+        end
+
         namespace :deploy do
           desc 'Setup'
           task :setup, :except => {:no_release => true} do

@@ -12,7 +12,7 @@ module CapistranoDeploy
 
         set :whenever_identifier do
           if using_recipe?(:multistage)
-            "#{application}_#{stage}"
+            "#{application}_#{current_stage}"
           else
             application
           end

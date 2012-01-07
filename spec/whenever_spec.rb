@@ -17,7 +17,7 @@ describe 'whenever' do
     it 'default to application with stage when using multistage' do
       mock_config do
         use_recipe :multistage
-        set :stage, 'bar'
+        set :current_stage, 'bar'
       end
       config.whenever_identifier.should == 'foo_bar'
     end
