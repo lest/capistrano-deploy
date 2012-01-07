@@ -6,13 +6,15 @@ Git & Rails
 
 Minimal Capfile for Rails deploy using Git:
 
-    require 'capistrano-deploy'
-    use_recipes :git, :rails
+```ruby
+require 'capistrano-deploy'
+use_recipes :git, :rails
 
-    server 'server name or ip address', :web, :app, :db, :primary => true
-    set :user, 'user for deploy'
-    set :deploy_to, '/deploy/to/path'
-    set :repository, 'your git repository'
+server 'server name or ip address', :web, :app, :db, :primary => true
+set :user, 'user for deploy'
+set :deploy_to, '/deploy/to/path'
+set :repository, 'your git repository'
+```
 
 To setup:
 
@@ -33,50 +35,68 @@ To look through changes to be deployed:
 Multistage
 ----------
 
-    use_recipe :multistage
+```ruby
+use_recipe :multistage
 
-    set :default_stage, :development
+set :default_stage, :development
 
-    stage :development do
-      ...
-    end
+stage :development do
+  ...
+end
 
-    stage :production do
-      ...
-    end
+stage :production do
+  ...
+end
+```
 
 Bundle
 ------
 
-    use_recipe :bundle
+```ruby
+use_recipe :bundle
+```
 
 To automatically install missing gems:
 
-    after 'deploy:update', 'bundle:install'
+```ruby
+after 'deploy:update', 'bundle:install'
+```
 
 Passenger
 ---------
 
-    use_recipe :passenger
+```ruby
+use_recipe :passenger
+```
 
 Unicorn
 -------
 
-    use_recipe :unicorn
+```ruby
+use_recipe :unicorn
+```
 
 Now you can setup to reload unicorn on `deploy:restart`:
 
-    after 'deploy:restart', 'unicorn:reload'
+```ruby
+after 'deploy:restart', 'unicorn:reload'
+```
 
 Whenever
 --------
 
-    use_recipe :whenever
+```ruby
+use_recipe :whenever
+```
 
 To automatically update crontab file:
 
-    after 'deploy:restart', 'whenever:update_crontab'
+```ruby
+after 'deploy:restart', 'whenever:update_crontab'
+```
 
 You can also clear crontab file with command:
 
-    cap whenever:clear_crontab
+```ruby
+cap whenever:clear_crontab
+```
