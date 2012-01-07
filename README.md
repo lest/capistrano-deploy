@@ -37,11 +37,11 @@ Multistage
 
     set :default_stage, :development
 
-    define_stage :development do
+    stage :development do
       ...
     end
 
-    define_stage :production do
+    stage :production do
       ...
     end
 
