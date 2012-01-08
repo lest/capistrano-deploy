@@ -7,6 +7,7 @@ module CapistranoDeploy
         attr_reader :used_recipes
 
         define_method :use_recipe do |recipe_name|
+          return if @used_recipes.include?(recipe_name.to_sym)
           @used_recipes << recipe_name.to_sym
 
           require "capistrano-deploy/#{recipe_name}"

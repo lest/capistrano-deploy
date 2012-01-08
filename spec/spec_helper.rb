@@ -6,11 +6,20 @@ module CapistranoDeploy
   module Spec
     module ConfigurationExtension
       def run(cmd, options={}, &block)
-        runs[cmd] = {:options => options, :block => block}
+        runned_commands[cmd] = {:options => options, :block => block}
       end
 
-      def runs
-        @runs ||= {}
+      def execute_task(task)
+        executed_tasks[task.fully_qualified_name] = task
+        super
+      end
+
+      def runned_commands
+        @runned_commands ||= {}
+      end
+
+      def executed_tasks
+        @executed_tasks ||= {}
       end
     end
 
@@ -31,11 +40,10 @@ module CapistranoDeploy
 
       def cli_execute(*args)
         config = @config
-        cli = Capistrano::CLI.parse(args.flatten).tap do |cli|
-          cli.instance_eval do
-            (class << self; self; end).send(:define_method, :instantiate_configuration) do |options|
-              config
-            end
+        cli = Capistrano::CLI.parse(args.flatten)
+        cli.instance_eval do
+          (class << self; self end).send(:define_method, :instantiate_configuration) do |options|
+            config
           end
         end
 
@@ -48,11 +56,25 @@ module CapistranoDeploy
 
       define :have_run do |cmd|
         match do |configuration|
-          configuration.runs[cmd]
+          configuration.runned_commands[cmd]
         end
 
         failure_message_for_should do |configuration|
-          "expected configuration to run #{cmd}, but it wasn't found in #{configuration.runs.keys}"
+          "expected configuration to run #{cmd}, but it wasn't found in #{configuration.runned_commands.keys}"
+        end
+      end
+
+      define :have_executed do |*tasks|
+        match do |configuration|
+          configuration.executed_tasks.keys.each do |actual|
+            tasks.shift if actual == tasks.first
+          end
+
+          tasks.empty?
+        end
+
+        failure_message_for_should do |configuration|
+          "expected configuration to execute #{tasks}, but it executed #{configuration.executed_tasks.keys}"
         end
       end
     end

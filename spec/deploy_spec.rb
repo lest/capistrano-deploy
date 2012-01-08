@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe 'deploy' do
   before do
-    mock_config { use_recipes :git, :rails }
+    mock_config do
+      use_recipes :git, :rails
+      set :deploy_to, '/foo/bar'
+    end
   end
 
   it 'returns used recipes' do
@@ -14,11 +17,15 @@ describe 'deploy' do
     config.should_not be_using_recipe(:bundle)
   end
 
+  it "doen't use recipe twice" do
+    config.use_recipe :git
+    config.used_recipes.should == [:git, :rails]
+  end
+
   describe 'deploy' do
     it 'runs update and restart' do
-      config.namespaces[:deploy].should_receive(:update)
-      config.namespaces[:deploy].should_receive(:restart)
       cli_execute 'deploy'
+      config.should have_executed('deploy:update', 'deploy:restart')
     end
   end
 end
