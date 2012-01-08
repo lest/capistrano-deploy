@@ -10,7 +10,7 @@ module CapistranoDeploy
       end
 
       def execute_task(task)
-        executed_tasks[task.fully_qualified_name] = task
+        executed_tasks << task.fully_qualified_name
         super
       end
 
@@ -19,7 +19,7 @@ module CapistranoDeploy
       end
 
       def executed_tasks
-        @executed_tasks ||= {}
+        @executed_tasks ||= []
       end
     end
 
@@ -66,11 +66,12 @@ module CapistranoDeploy
 
       define :have_executed do |*tasks|
         match do |configuration|
-          configuration.executed_tasks.keys.each do |actual|
-            tasks.shift if actual == tasks.first
+          expected = tasks.dup
+          configuration.executed_tasks.each do |actual|
+            expected.shift if actual == expected.first
           end
 
-          tasks.empty?
+          expected.empty?
         end
 
         failure_message_for_should do |configuration|
