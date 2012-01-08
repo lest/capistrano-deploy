@@ -17,7 +17,7 @@ describe 'deploy' do
     config.should_not be_using_recipe(:bundle)
   end
 
-  it "doen't use recipe twice" do
+  it 'uses recipe once' do
     config.use_recipe :git
     config.used_recipes.should == [:git, :rails]
   end
