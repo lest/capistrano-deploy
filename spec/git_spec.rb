@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe 'git' do
   before do
-    mock_config { use_recipe :git; set :deploy_to, '/foo/bar' }
+    mock_config do
+      use_recipe :git
+      set :deploy_to, '/foo/bar'
+    end
   end
 
   it 'has branch' do

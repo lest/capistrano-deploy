@@ -22,4 +22,27 @@ describe 'whenever' do
       config.whenever_identifier.should == 'foo_bar'
     end
   end
+
+  describe 'whenever_cmd' do
+    it 'has default value' do
+      config.whenever_cmd.should == 'whenever'
+    end
+
+    it 'respects bundle recipe' do
+      mock_config { use_recipe :bundle }
+      config.whenever_cmd.should == 'bundle exec whenever'
+    end
+  end
+
+  describe 'whenever:update_crontab' do
+    it 'runs command' do
+      mock_config do
+        set :deploy_to, '/foo/bar'
+        set :whenever_cmd, 'wc'
+        set :whenever_identifier, 'wi'
+      end
+      cli_execute 'whenever:update_crontab'
+      config.should have_run('cd /foo/bar && wc --update-crontab wi')
+    end
+  end
 end

@@ -13,12 +13,10 @@ describe 'passenger' do
       cli_execute 'passenger:restart'
       config.should have_run('touch /foo/bar/tmp/restart.txt')
     end
-  end
 
-  describe 'deploy:restart' do
-    it 'touches tmp/restart.txt' do
+    it 'is executed after deploy:restart' do
       cli_execute 'deploy:restart'
-      config.should have_run('touch /foo/bar/tmp/restart.txt')
+      config.should have_executed('deploy:restart', 'passenger:restart')
     end
   end
 end

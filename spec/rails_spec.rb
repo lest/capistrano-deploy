@@ -2,14 +2,13 @@ require 'spec_helper'
 
 describe 'rails' do
   before do
-    mock_config { use_recipe :rails }
+    mock_config do
+      use_recipe :rails
+      set :deploy_to, '/foo/bar'
+    end
   end
 
   describe 'deploy:migrate' do
-    before do
-      mock_config { set :deploy_to, '/foo/bar' }
-    end
-
     it 'runs rake db:migrate' do
       cli_execute 'deploy:migrate'
       config.should have_run('cd /foo/bar && RAILS_ENV=production rake db:migrate')
@@ -24,10 +23,8 @@ describe 'rails' do
 
   describe 'deploy:migrations' do
     it 'runs update, migrate and restart' do
-      config.namespaces[:deploy].should_receive(:update)
-      config.namespaces[:deploy].should_receive(:migrate)
-      config.namespaces[:deploy].should_receive(:restart)
       cli_execute 'deploy:migrations'
+      config.should have_executed('deploy:update', 'deploy:migrate', 'deploy:restart')
     end
   end
 end

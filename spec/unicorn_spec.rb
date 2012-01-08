@@ -15,17 +15,17 @@ describe 'unicorn' do
       mock_config { set :unicorn_pid, '/foo.pid' }
     end
 
-    it 'reload' do
+    it 'sends HUP' do
       cli_execute 'unicorn:reload'
       config.should have_run('kill -HUP /foo.pid')
     end
 
-    it 'stop' do
+    it 'sends QUIT' do
       cli_execute 'unicorn:stop'
       config.should have_run('kill -QUIT /foo.pid')
     end
 
-    it 'reexec' do
+    it 'sends USR2' do
       cli_execute 'unicorn:reexec'
       config.should have_run('kill -USR2 /foo.pid')
     end
