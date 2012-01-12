@@ -1,8 +1,10 @@
 Capistrano deploy recipes [![TravisCI](https://secure.travis-ci.org/lest/capistrano-deploy.png?branch=master)](http://travis-ci.org/lest/capistrano-deploy)
 =========================
 
-Git & Rails
------------
+Inspired by https://github.com/blog/470-deployment-script-spring-cleaning.
+
+Quickstart with Git and Rails
+-----------------------------
 
 Minimal Capfile for Rails deploy using Git:
 
