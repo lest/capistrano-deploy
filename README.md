@@ -24,16 +24,18 @@ Then when you push some changes to git repository simply run:
 
     cap deploy
 
-If you have migrations instead of previous command run:
+Or if you have migrations:
 
     cap deploy:migrations
 
-To look through changes to be deployed:
+To look through the changes to be deployed:
 
     cap deploy:pending
 
 Multistage
 ----------
+
+Basic usage:
 
 ```ruby
 use_recipe :multistage
@@ -49,14 +51,26 @@ stage :production do
 end
 ```
 
+You can also pass options that allow setting variables and default stage:
+
+```ruby
+stage :development, :branch => :develop, :default => true
+stage :production,  :branch => :master
+```
+
+When branches are specified for stages and git recipe is used
+it will automatically select stage based on current local branch.
+
 Bundle
 ------
+
+Use recipe:
 
 ```ruby
 use_recipe :bundle
 ```
 
-To automatically install missing gems:
+And add callback to run `bundle install` on each deploy:
 
 ```ruby
 after 'deploy:update', 'bundle:install'
@@ -65,18 +79,24 @@ after 'deploy:update', 'bundle:install'
 Passenger
 ---------
 
+Use recipe:
+
 ```ruby
 use_recipe :passenger
 ```
 
+It will automatically do `touch tmp/restart.txt` on each deploy.
+
 Unicorn
 -------
+
+Use recipe:
 
 ```ruby
 use_recipe :unicorn
 ```
 
-Now you can setup to reload unicorn on `deploy:restart`:
+You can setup callback to reload unicorn after deploy is done:
 
 ```ruby
 after 'deploy:restart', 'unicorn:reload'
@@ -84,6 +104,8 @@ after 'deploy:restart', 'unicorn:reload'
 
 Whenever
 --------
+
+Use recipe:
 
 ```ruby
 use_recipe :whenever
