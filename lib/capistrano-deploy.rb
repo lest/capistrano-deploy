@@ -12,11 +12,15 @@ module CapistranoDeploy
       def use_recipe(recipe_name)
         return if @used_recipes.include?(recipe_name.to_sym)
 
-        require "capistrano-deploy/#{recipe_name}"
-        recipe = CapistranoDeploy.const_get(recipe_name.to_s.capitalize.gsub(/_(\w)/) { $1.upcase })
-        recipe.load_into(self)
+        begin
+          require "capistrano-deploy/#{recipe_name}"
 
-        @used_recipes << recipe.to_s.split('::').last.downcase.to_sym
+          recipe = CapistranoDeploy.const_get(recipe_name.to_s.capitalize.gsub(/_(\w)/) { $1.upcase })
+          recipe.load_into(self)
+          @used_recipes << recipe.to_s.split('::').last.downcase.to_sym
+        rescue LoadError
+          abort "Are you misspelled `#{recipe_name}` recipe name?"
+        end
       end
 
       def use_recipes(*recipes)

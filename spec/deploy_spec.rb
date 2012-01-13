@@ -22,6 +22,13 @@ describe 'deploy' do
     config.used_recipes.should == [:git, :rails]
   end
 
+  it 'aborts when recipe name misspelled' do
+    with_stderr do |output|
+      expect { config.use_recipe(:rvn) }.to raise_error(SystemExit)
+      output.should include('Are you misspelled `rvn` recipe name?')
+    end
+  end
+
   describe 'deploy' do
     it 'runs update and restart' do
       cli_execute 'deploy'
