@@ -20,6 +20,14 @@ describe 'multistage' do
     config.foo.should == 'bar'
   end
 
+  it 'aborts when no stage selected' do
+    with_stderr do |output|
+      config.unset :default_stage
+      expect { cli_execute 'example' }.to raise_error(SystemExit)
+      output.should include('No stage specified. Please specify one of: development, production')
+    end
+  end
+
   it 'uses specified stage' do
     cli_execute %w[production example]
     config.current_stage.should == 'production'

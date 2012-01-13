@@ -48,6 +48,21 @@ module CapistranoDeploy
 
         cli.execute!
       end
+
+      def with_stderr
+        original, $stderr = $stderr, StringIO.new
+        output = Object.new
+        class << output
+          instance_methods.each { |m| undef_method m unless m =~ /^__|^object_id$|^instance_eval$/ }
+        end
+        def output.method_missing(*args, &block)
+          ($stderr.rewind && $stderr.read).__send__(*args, &block)
+        end
+
+        yield output
+      ensure
+        $stderr = original
+      end
     end
 
     module Matchers
