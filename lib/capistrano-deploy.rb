@@ -1,3 +1,5 @@
+require 'capistrano'
+
 module CapistranoDeploy
   def self.load_into(configuration)
     configuration.load do

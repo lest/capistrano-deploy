@@ -1,6 +1,5 @@
-require 'capistrano'
-require 'capistrano/cli'
 require 'capistrano-deploy'
+require 'capistrano/cli'
 
 module CapistranoDeploy
   module Spec
