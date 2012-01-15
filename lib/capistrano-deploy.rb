@@ -11,11 +11,12 @@ module CapistranoDeploy
 
       def use_recipe(recipe_name)
         return if @used_recipes.include?(recipe_name.to_sym)
-        @used_recipes << recipe_name.to_sym
 
         require "capistrano-deploy/#{recipe_name}"
         recipe = CapistranoDeploy.const_get(recipe_name.to_s.capitalize.gsub(/_(\w)/) { $1.upcase })
         recipe.load_into(self)
+
+        @used_recipes << recipe.to_s.split('::').last.downcase.to_sym
       end
 
       def use_recipes(*recipes)
