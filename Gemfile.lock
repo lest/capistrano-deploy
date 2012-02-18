@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    capistrano-deploy (0.3.0)
+    capistrano-deploy (0.3.1)
       capistrano (~> 2.9.0)
 
 GEM
