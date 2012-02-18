@@ -17,8 +17,6 @@ module CapistranoDeploy
             end
           end
         end
-
-        after 'deploy:update', 'deploy:assets:precompile'
       end
     end
   end

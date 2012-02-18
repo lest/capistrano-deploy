@@ -23,11 +23,6 @@ describe 'rails assets' do
       cli_execute 'deploy:assets:precompile'
       config.should have_run('cd /foo/bar && RAILS_ENV=production RAILS_GROUPS=assets bundle exec rake assets:precompile')
     end
-
-    it 'is invoked after deploy:update' do
-      cli_execute 'deploy:update'
-      config.should have_executed('deploy:update', 'deploy:assets:precompile')
-    end
   end
 
   describe 'deploy:assets:clean' do
