@@ -78,6 +78,21 @@ And add callback to run `bundle install` on each deploy:
 after 'deploy:update', 'bundle:install'
 ```
 
+Rails Assets
+------------
+
+Use recipe:
+
+```ruby
+use_recipe :bundle
+```
+
+Add callback to precompile assets after update:
+
+```ruby
+after 'deploy:update', 'deploy:assets:precompile'
+```
+
 Passenger
 ---------
 
