@@ -84,7 +84,7 @@ Rails Assets
 Use recipe:
 
 ```ruby
-use_recipe :bundle
+use_recipe :rails_assets
 ```
 
 Add callback to precompile assets after update:
