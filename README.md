@@ -1,4 +1,4 @@
-Capistrano deploy recipes [![TravisCI](https://secure.travis-ci.org/lest/capistrano-deploy.png?branch=master)](http://travis-ci.org/lest/capistrano-deploy)
+Capistrano deploy recipes [![TravisCI](https://secure.travis-ci.org/lest/capistrano-deploy.png?branch=master)](http://travis-ci.org/lest/capistrano-deploy) [![Gemnasium](https://gemnasium.com/lest/capistrano-deploy.png)](https://gemnasium.com/lest/capistrano-deploy)
 =========================
 
 Inspired by https://github.com/blog/470-deployment-script-spring-cleaning.
