@@ -3,4 +3,5 @@ pkg/*
 .bundle
 .yardoc
 doc
+Gemfile.lock
 vendor/bundle
