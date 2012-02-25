@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name        = 'capistrano-deploy'
-  s.version     = '0.3.1'
+  s.version     = '0.3.2'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Sergey Nartimov']
   s.email       = ['just.lest@gmail.com']
