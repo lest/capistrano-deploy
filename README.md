@@ -6,17 +6,29 @@ Inspired by https://github.com/blog/470-deployment-script-spring-cleaning.
 Quickstart with Git and Rails
 -----------------------------
 
-Minimal Capfile for Rails deploy using Git:
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'capistrano-deploy', :group => :development, :require => false
+```
+
+Create a file named `Capfile` in your project root directory:
 
 ```ruby
 require 'capistrano-deploy'
-use_recipes :git, :rails
+use_recipes :git, :bundle, :rails
 
 server 'server name or ip address', :web, :app, :db, :primary => true
 set :user, 'user for deploy'
 set :deploy_to, '/deploy/to/path'
 set :repository, 'your git repository'
+
+after 'deploy:update', 'bundle:install'
 ```
+
+And then execute:
+
+    bundle
 
 To setup:
 
@@ -37,6 +49,8 @@ To look through the changes to be deployed:
 If you want to update to a specific commit (e.g. to rollback):
 
     cap deploy COMMIT=foobarbaz
+
+Note: it may be required to run `bundle exec cap ...` instead of `cap ...`.
 
 Multistage
 ----------
