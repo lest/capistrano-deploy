@@ -34,6 +34,10 @@ To look through the changes to be deployed:
 
     cap deploy:pending
 
+If you want to update to a specific commit (e.g. to rollback):
+
+    cap deploy COMMIT=foobarbaz
+
 Multistage
 ----------
 

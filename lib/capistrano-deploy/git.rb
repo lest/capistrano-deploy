@@ -24,14 +24,16 @@ module CapistranoDeploy
 
           desc 'Update the deployed code'
           task :update, :except => {:no_release => true} do
-            command = ["cd #{deploy_to}", 'git fetch origin', "git reset --hard origin/#{branch}"]
+            commit = ENV['COMMIT'] || "origin/#{branch}"
+            command = ["cd #{deploy_to}", 'git fetch origin', "git reset --hard #{commit}"]
             command += ['git submodule init', 'git submodule -q sync', 'git submodule -q update'] if enable_submodules
             run command.join(' && ')
           end
 
           desc 'Show pending commits'
           task :pending do
-            system("git log --pretty=medium --stat #{current_revision}..origin/#{branch}")
+            commit = ENV['COMMIT'] || "origin/#{branch}"
+            system("git log --pretty=medium --stat #{current_revision}..#{commit}")
           end
         end
       end

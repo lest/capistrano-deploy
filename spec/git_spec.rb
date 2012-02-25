@@ -6,6 +6,8 @@ describe 'git' do
       use_recipe :git
       set :deploy_to, '/foo/bar'
     end
+
+    ENV.delete('COMMIT')
   end
 
   it 'has branch' do
@@ -44,6 +46,11 @@ describe 'git' do
         cli_execute 'deploy:update'
         config.should have_run('cd /foo/bar && git fetch origin && git reset --hard origin/master && git submodule init && git submodule -q sync && git submodule -q update')
       end
+
+      it 'updates to specific commit' do
+        cli_execute 'deploy:update', 'COMMIT=foobarbaz'
+        config.should have_run('cd /foo/bar && git fetch origin && git reset --hard foobarbaz')
+      end
     end
   end
 
@@ -56,6 +63,12 @@ describe 'git' do
     config.should_receive(:current_revision) { 'baz' }
     config.namespaces[:deploy].should_receive(:system).with('git log --pretty=medium --stat baz..origin/master')
     cli_execute 'deploy:pending'
+  end
+
+  it 'shows pending against specific commit' do
+    config.should_receive(:current_revision) { 'baz' }
+    config.namespaces[:deploy].should_receive(:system).with('git log --pretty=medium --stat baz..foobarbaz')
+    cli_execute 'deploy:pending', 'COMMIT=foobarbaz'
   end
 
   it 'sets forward agent' do
