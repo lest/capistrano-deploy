@@ -8,11 +8,11 @@ module CapistranoDeploy
           else
             'foreman'
           end
+          foreman_env_files = fetch(:foreman_env_files, '.env')        
         end
 
         set(:rake) { "#{foreman_cmd} run rake" }
         set(:foreman_format) { 'upstart' }
-        foreman_env_files = fetch(:foreman_env_files, '.env')
 
         namespace :foreman do
           desc 'Start foreman'
