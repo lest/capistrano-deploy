@@ -27,7 +27,10 @@ module CapistranoDeploy
 
           desc 'Upload .env file'
           task :upload_env, :roles => :app, :except => {:no_release => true} do
-            upload foreman_env_files, "#{deploy_to}/"
+            files = foreman_env_files.split ','
+            files.each do |file|
+              upload file, "#{deploy_to}/"
+            end
           end
         end
       end
