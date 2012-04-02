@@ -35,6 +35,9 @@ module CapistranoDeploy
             end
           end
         end
+
+        after 'deploy:update', 'foreman:upload_env'
+        after 'deploy:restart', 'foreman:export'
       end
     end
   end
