@@ -21,18 +21,15 @@ module CapistranoDeploy
 
           desc 'Export foreman'
           task :export, :roles => :app, :except => {:no_release => true} do
-            foreman_env_files = fetch(:foreman_env_files, '.env')        
-            run "cd #{deploy_to}; #{foreman_cmd} export #{foreman_format} /home/#{user}/service --app=#{app_name} --user=#{user} --log=#{deploy_to}/log --env=#{foreman_env_files}"
+            run "cd #{deploy_to}; #{foreman_cmd} export #{foreman_format} /home/#{user}/service --app=#{app_name} --user=#{user} --log=#{deploy_to}/log"
           end
 
           desc 'Upload .env file'
           task :upload_env, :roles => :app, :except => {:no_release => true} do
             foreman_env_files = fetch(:foreman_env_files, '.env')        
             files = foreman_env_files.split ','
-            files.each do |file|
-              puts file
-              upload file, "#{deploy_to}/#{file}"
-            end
+            env = `cat #{files.join ' '}`
+            put env, "#{deploy_to}/.env"
           end
         end
 
