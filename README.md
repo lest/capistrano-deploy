@@ -38,7 +38,7 @@ Then when you push some changes to git repository simply run:
 
     cap deploy
 
-Or if you have migrations:
+Or if you have migrations (`:rails` recipe should be used in Capfile: `use_recipe :rails`):
 
     cap deploy:migrations
 
