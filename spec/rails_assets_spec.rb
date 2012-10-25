@@ -11,15 +11,21 @@ describe 'rails assets' do
   it 'uses rails recipe' do
     config.should be_using_recipe(:rails)
   end
+  
+  it 'uses git recipe' do
+    config.should be_using_recipe(:git)
+  end
 
   describe 'deploy:assets:precompile' do
     it 'runs precompile' do
+      mock_config { set :always_compile_assets, true }
       cli_execute 'deploy:assets:precompile'
       config.should have_run('cd /foo/bar && RAILS_ENV=production RAILS_GROUPS=assets rake assets:precompile')
     end
 
     it 'uses bundle command' do
       mock_config { use_recipe :bundle }
+      mock_config { set :always_compile_assets, true }      
       cli_execute 'deploy:assets:precompile'
       config.should have_run('cd /foo/bar && RAILS_ENV=production RAILS_GROUPS=assets bundle exec rake assets:precompile')
     end

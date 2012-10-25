@@ -5,3 +5,4 @@ pkg/*
 doc
 Gemfile.lock
 vendor/bundle
+bin

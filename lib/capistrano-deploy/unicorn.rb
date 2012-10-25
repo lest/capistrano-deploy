@@ -17,7 +17,7 @@ module CapistranoDeploy
 
           desc 'Reexecute unicorn'
           task :reexec, :roles => :app, :except => {:no_release => true} do
-            run "kill -USR2 #{unicorn_pid}"
+            run "kill -USR2 #{unicorn_pid}" if unicorn_pid
           end
         end
       end
